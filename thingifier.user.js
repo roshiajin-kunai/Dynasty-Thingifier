@@ -6,7 +6,7 @@
 // @include     https://dynasty-scans.com/*
 // @exclude     https://dynasty-scans.com/system/*
 // @exclude     https://dynasty-scans.com/*.json
-// @version     2.243
+// @version     2.243.1
 // @description Adds post links and quote stuff to Dynasty forums
 // @grant		GM_getValue
 // @grant		GM_listValue
@@ -144,6 +144,7 @@ function getClass(cl) {
 
         //Populate Menu
         $('body').append(`
+
 <style>
 #thingifier {
 float: left;
@@ -153,32 +154,51 @@ max-height: 255px !important;
 display: none;
 }
 #thingifier, #magnifier-settings, #magnifier-submenu-toggle {
-top: 25%;
+top: 20%;
 position: fixed;
 }
 #thingifier-options {
-border: 1px solid black;
 padding: 8px;
-background: aliceblue;
+background: white;
+border: none;
 border-bottom-right-radius: 6px;
 border-left-width: 0;
+box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2), 0px 3px 5px rgba(0, 0, 0, 0.1);
 }
-#thingifier-options ul { list-style-type: none; margin-left: -4px;}
-#thingifier-options ul > li {  vertical-align: middle; }
-#thingifier ul li input { padding-right: 4px; }
+#thingifier-options ul {
+  list-style-type: none;
+  margin-left: 2px;
+  cursor: default;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+}
+#thingifier-options ul > li {  padding: 0px 0px 1px 2px; vertical-align: middle; }
+#thingifier ul li input { padding: 4px 10px; margin: 2px 0px; background: #003366; border: none; color: white;}
+#thingifier ul li input:hover { background-color: #004c99;}
 #thingifier-font-size { width: 96px; }
 #thingifier-toggle-button {
+z-index: -1;
 position: absolute;
 top: 0;
 left: calc(100% - 1px);
 width: 24px;
 height: 24px;
-border: 1px solid black;
-background-color: aliceblue;
-color: red;
-border-top-right-radius: 6px;
-border-bottom-right-radius: 6px;
+border: none;
+background-color: #003366;
+color: white;
+border-top-right-radius: 2px;
+border-bottom-right-radius: 2px;
 border-left-width: 0;
+box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2), 0px 3px 5px rgba(0, 0, 0, 0.1);
+padding-left:6px;
+}
+#thingifier-toggle-button:hover {
+background-color: #004c99;
 }
 .spoilers-disabled {
 background: #666 none repeat scroll 0% 0%;
@@ -240,12 +260,25 @@ z-index: 100000000;
 }
 #thingifier-magnifier-menu, #magnifier-tooltip {
 display: inline-block;
-border: 1px solid black;
+border: 1px solid #cccccc;
 padding: 8px;
-background: aliceblue;
-border-radius: 6px;
+background: white;
+border-radius: 4px;
 margin-left: 0px;
 vertical-align: top;
+box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2), 0px 3px 5px rgba(0, 0, 0, 0.1);
+top: 480px;
+left: -15px;
+}
+#thingifier-magrifier::after {
+  content: "";
+  position: absolute;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+top: 54%;
+left: -15px;
 }
 #thingifier-magnifier-menu input {
 display: inline-block;
@@ -262,9 +295,30 @@ width: 64px;
 #minsizenum, #minsizemeasure, #zoomfactor, #squareborder, #circularborder {
 margin-top: 7px;
 }
+#magnifier-menu-cancel {
+font-decoration: none;
+background-color: #003366;
+color: white;
+padding: 6px;
+border: none;
+margin: 0px;
+width: 56px;
+}
+#magnifier-menu-cancel:hover {
+background-color: #004c99;
+}
 #magnifier-menu-submit {
 margin-left: 178px;
 margin-right: 8px;
+font-decoration: none;
+background-color: #003366;
+color: white;
+padding: 6px;
+border: none;
+width: 41px;
+}
+#magnifier-menu-submit:hover {
+background-color: #004c99;
 }
 #magnifier-buttons {
 margin-top: -24px;
@@ -272,7 +326,6 @@ float: right;
 }
 #thingifier-magnifier-menu h3, #magnifier-tooltip h3 {
 text-align: center;
-text-decoration: underline;
 padding-bottom: 8px;
 }
 #thingifier-magnifier-menu h3 i {
@@ -340,6 +393,7 @@ margin-top: 148px;
 #magnifier-settings, #magnifier-submenu-toggle {
 display: inline;
 z-index: 1001;
+top: 20.1%;
 }
 .thingifier-icon {
 /*background-image: url(http://dynasty-scans.com//assets/twitter/bootstrap/glyphicons-halflings-2851b489e8c39f8fad44fc10efb99c3e.png);*/
@@ -359,14 +413,18 @@ margin-left: 272px;
 margin-top: 132px;
 }
 #magnifier-submenu-toggle::after {
-margin-left: 18px;
+margin-left: 5px;
 font-size: 12px;
 font-style: normal;
 content: "Settings";
+font-decoration: none;
+background-color: #003366;
+color: white;
+padding: 4px 6px;
 }
 #magnifier-submenu-toggle:hover {
-text-decoration: underline;
-cursor: pointer;
+background-color: white !important;
+cursor: pointer !important;
 }
 #thingifier-magnifier-menu input[type="number"], #thingifier-magnifier-menu input[type="text"] {
 text-align: center;
@@ -391,6 +449,7 @@ input.btn {
 cursor: pointer !important;
 }
 </style>
+
 <div id="thingifier">
 <div id="thingifier-options">
 <ul>
@@ -407,15 +466,15 @@ cursor: pointer !important;
 <li><input type="button" id="thingifier-clear" value="Clear stored data"></li>
 </ul>
 </div>
-<div id="thingified-toggle"><input type="button" id="thingifier-toggle-button" value="X"></div>
-<i class="thingifier-icon" id="magnifier-submenu-toggle"></i>
+<div id="thingified-toggle"><input type="button" id="thingifier-toggle-button" value="X"> </div>
+<i id="magnifier-submenu-toggle"></i>
 <div id="thingifier-magnifier-menu">
-<h3><i class="thingifier-icon"></i> Magnifier Settings</h3>
+<h3>Magnifier Settings</h3>
 Size: <input type="number" id="sizenum"><input type="text" list="measurements" id="sizemeasure" pattern="vh|vw|vmin|vmax|%|px"><br>
 Minimum Size: <input type="number" id="minsizenum"><input type="text" list="measurements" id="minsizemeasure" pattern="vh|vw|vmin|vmax|%|px"><br>
 Zoom factor: <input type="number" id="zoomfactor">%<br>
 Shape: <input type="radio" id="squareborder" val="square" name="magnifier-shape"><label for="square" id="forsquare">Square </label><input type="radio" id="circularborder" val="circle" name="magnifier-shape"><label for="circle" id="forcircle">Circle</label><br>
-<span id="magnifier-buttons"><input type="button" id="magnifier-menu-submit" value="Save"><input type="button" id="magnifier-menu-cancel" value="Cancel"></span>
+<span id="magnifier-buttons"><input type="button" id="magnifier-menu-submit" value=" Save "><input type="button" id="magnifier-menu-cancel" value=" Cancel "></span>
 <datalist id="measurements">
 <option value="vh">
 <option value="vw">
