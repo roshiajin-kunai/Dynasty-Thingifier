@@ -200,7 +200,8 @@ text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 
 }
 #thingifier-toggle-button:hover {
-background-color: #004c99;
+background-image: linear-gradient(#004c99, #004c99);
+text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 }
 .spoilers-disabled {
 background: #666 none repeat scroll 0% 0%;
