@@ -6,7 +6,7 @@
 // @include     https://dynasty-scans.com/*
 // @exclude     https://dynasty-scans.com/system/*
 // @exclude     https://dynasty-scans.com/*.json
-// @version     2.243.1
+// @version     2.243.2
 // @description Adds post links and quote stuff to Dynasty forums
 // @grant		GM_getValue
 // @grant		GM_listValue
@@ -114,25 +114,25 @@ function getClass(cl) {
         fontsize = [3, "one", "two", "three", "four", "five"],
         bbcode_menu = `
 <div id="thingifier-bbcode">
-<div class="thingifier-bbcode-first-row"><input type="button" id="thingifier-bbcode-quote" value="Quote">
-<input type="button" id="thingifier-bbcode-link" value="Link">
-<input type="button" id="thingifier-bbcode-image" value="Image">
-<input type="button" id="thingifier-bbcode-spoiler" value="Spoiler">
-<input type="button" id="thingifier-bbcode-ul" value="List">
-<input type="button" id="thingifier-bbcode-ol" value="Numbered List">
-<input type="button" id="thingifier-bbcode-italics" value="Italics">
-<input type="button" id="thingifier-bbcode-bold" value="Bold">
+<div class="thingifier-bbcode-first-row"><input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-quote" value="Quote">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-link" value="Link">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-image" value="Image">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-spoiler" value="Spoiler">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-ul" value="List">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-ol" value="Numbered List">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-italics" value="Italics">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-bold" value="Bold">
 </div>
 <div class="thingifier-bbcode-second-row">
-<input type="button" id="thingifier-bbcode-tag" value="Tags">
-<input type="button" id="thingifier-bbcode-hr" value="Horizontal Rule">
-<input type="button" id="thingifier-bbcode-codeblock" value="Code Block">
-<input type="button" id="thingifier-bbcode-h1" value="H1">
-<input type="button" id="thingifier-bbcode-h2" value="H2">
-<input type="button" id="thingifier-bbcode-h3" value="H3">
-<input type="button" id="thingifier-bbcode-h4" value="H4">
-<input type="button" id="thingifier-bbcode-h5" value="H5">
-<input type="button" id="thingifier-bbcode-h6" value="H6">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-tag" value="Tags">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-hr" value="Horizontal Rule">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-codeblock" value="Code Block">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-h1" value="H1">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-h2" value="H2">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-h3" value="H3">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-h4" value="H4">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-h5" value="H5">
+<input type="button" class="thingifier-bbcode-button" id="thingifier-bbcode-h6" value="H6">
 </div>
 </div>`, //The html code for our bbcode buttons
         quickreply;
@@ -189,13 +189,15 @@ left: calc(100% - 1px);
 width: 24px;
 height: 24px;
 border: none;
-background-color: #003366;
+background-image: linear-gradient(#003166, #001366);
 color: white;
 border-top-right-radius: 2px;
 border-bottom-right-radius: 2px;
 border-left-width: 0;
 box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2), 0px 3px 5px rgba(0, 0, 0, 0.1);
 padding-left:6px;
+text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
+
 }
 #thingifier-toggle-button:hover {
 background-color: #004c99;
@@ -303,6 +305,7 @@ padding: 6px;
 border: none;
 margin: 0px;
 width: 56px;
+text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 }
 #magnifier-menu-cancel:hover {
 background-color: #004c99;
@@ -316,6 +319,7 @@ color: white;
 padding: 6px;
 border: none;
 width: 41px;
+text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
 }
 #magnifier-menu-submit:hover {
 background-color: #004c99;
@@ -447,6 +451,34 @@ background-image: linear-gradient(to bottom, rgb(224, 0, 0), rgb(124, 0, 0));
 }
 input.btn {
 cursor: pointer !important;
+}
+.thingifier-bbcode-button {
+font-decoration: none;
+background-image: linear-gradient(top, rgba(51, 92, 133, 1), rgba(51, 92, 133, 0));
+background-image: linear-gradient(#003166, #001366);
+color: white;
+padding: 2px 8px;
+margin:3px 0px;
+border: 1px solid #001c4c;
+border-radius: 3px;
+transition: .3s;
+text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
+}
+.thingifier-bbcode-button:hover {
+background-image: linear-gradient(top, rgba(51, 92, 133, 1), rgba(51, 92, 133, 0));
+background-image: linear-gradient(#001366, #001366);
+}
+.postquote {
+background-color:transpatent;
+border: none;
+text-decoration: underline;
+color: #003366;
+margin-right:10px;
+margin-bottom: 3px;
+padding: 0px;
+}
+.postquote:hover {
+color: #1f57bd;
 }
 </style>
 
