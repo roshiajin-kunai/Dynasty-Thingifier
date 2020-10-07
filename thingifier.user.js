@@ -6,7 +6,7 @@
 // @include     https://dynasty-scans.com/*
 // @exclude     https://dynasty-scans.com/system/*
 // @exclude     https://dynasty-scans.com/*.json
-// @version     2.243.2
+// @version     2.243.5
 // @description Adds post links and quote stuff to Dynasty forums
 // @grant		GM_getValue
 // @grant		GM_listValue
@@ -189,19 +189,20 @@ left: calc(100% - 1px);
 width: 24px;
 height: 24px;
 border: none;
-background-image: linear-gradient(#003166, #001366);
+background-color: #e3e3e3;
 color: white;
-border-top-right-radius: 2px;
-border-bottom-right-radius: 2px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
 border-left-width: 0;
-box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2), 0px 3px 5px rgba(0, 0, 0, 0.1);
-padding-left:6px;
-text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
-
+box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+padding-left: 6px;
+text-shadow: 2px -1px 9px rgba(0, 0, 0, 0.2), 1px 1px 2px rgba(0, 0, 0, 0.2);
+border: 1px solid #cacaca;
 }
 #thingifier-toggle-button:hover {
-background-image: linear-gradient(#004c99, #004c99);
-text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.2);
+background-color: white;
+color:#e3e3e3;
+text-shadow: none;
 }
 .spoilers-disabled {
 background: #666 none repeat scroll 0% 0%;
@@ -280,8 +281,8 @@ left: -15px;
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent black transparent;
-top: 54%;
-left: -15px;
+  top: 54%;
+  left: -15px;
 }
 #thingifier-magnifier-menu input {
 display: inline-block;
@@ -1048,8 +1049,8 @@ Shape: <input type="radio" id="squareborder" val="square" name="magnifier-shape"
         }
 
         //Insert "unread posts" button after thread link in manga viewer
-        if (pageurl.match(/chapters/)) {
-            var mangathread = `<a class="btn btn-mini" title="View latest unread post in thread"href="${$('div.btn-toolbar div.btn-group:first-child a.btn:first-child').attr('href')}/unread"><i class="icon-comment"></i>Unread</a>`;
+       /* if (pageurl.match(/chapters/)) {
+            var mangathread = `<a class="btn btn-mini" title="View latest unread post in thread"href="${$('div.btn-toolbar div.btn-group:first-child a.btn:first-child').attr('href')}/unread"><i class="icon-comment"></i> Unread</a>`;
             $(mangathread).insertAfter('div.btn-toolbar div.btn-group:first-child a.btn:first-child');
         } else if (pageurl.match(/series/) || pageurl.match(/anthologies/)) {
 			var thread = document.getElementsByClassName("btn-mini")[0];
@@ -1058,7 +1059,7 @@ Shape: <input type="radio" id="squareborder" val="square" name="magnifier-shape"
 				$(mangathread).insertAfter(thread);
 			}
 		}
-
+*/
         //Insert last post link to read threads
         if (pageurl.match(/\/forum(?!\/topics)/)) {
             var elements = $('div.forum_topic').length;
