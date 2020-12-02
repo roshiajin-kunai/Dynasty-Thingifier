@@ -2,7 +2,7 @@
 // @name        Dynasty Thingifier
 // @namespace   Alice Cheshire
 // @author		Alice Cheshire
-// @downloadURL	https://github.com/roshiajin-kunai/Dynasty-Thingifier/raw/master/thingifier.user.js
+// @downloadURL	https://github.com/sakkamade/Dynasty-Thingifier/raw/master/thingifier.user.js
 // @include     https://dynasty-scans.com/*
 // @exclude     https://dynasty-scans.com/system/*
 // @exclude     https://dynasty-scans.com/*.json
